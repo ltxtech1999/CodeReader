@@ -148,16 +148,16 @@ def generate_dependency_graph_csv(package_dict:Dict[str,Set[str]], dependency_di
     filtered_dependencies = generate_dep_node_edges(package_dict,dependency_dict)
     # Prepare data for CSV
     csv_data = []
-    csv_data.append(['Type', 'Source', 'Target', 'Label', 'Identifier', 'TypeKind'])
+    csv_data.append(['Type', 'Identifier', 'Source', 'Target', 'Label', 'TypeKind'])
 
     # Extract nodes information
     for package in filtered_dependencies:
-        csv_data.append(['Node', package, '', '', '', 'Class'])
+        csv_data.append(['Node', package, '', '', package, 'Class'])
 
     # Extract edges information
     for package, deps in filtered_dependencies.items():
         for dep in deps:
-            csv_data.append(['Edge', package, dep, '', '', ''])
+            csv_data.append(['Edge', '', package, dep, 'reference', ''])
 
     return csv_data
 
