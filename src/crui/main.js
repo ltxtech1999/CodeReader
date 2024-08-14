@@ -1,4 +1,4 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
@@ -170,7 +170,9 @@ app.on('ready', () => {
     }
   });
 
-
-
+  ipcMain.handle('show-item-in-folder', async (event, filePath) => {
+    console.log(`Opening folder and showing item: ${filePath}`);
+    shell.showItemInFolder(filePath);
+  });
  
 });

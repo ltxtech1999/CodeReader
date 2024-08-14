@@ -469,6 +469,19 @@ async function displayPngFile(filePath) {
     }
     imgElement.style.transform = `scale(${zoomLevel})`;
   });
+
+  //create a new button for source png
+  const openFolderButton = document.createElement('button')
+  openFolderButton.textContent = 'Open Folder to Get Source Picture';
+  openFolderButton.computedStyleMap.marginTop = '10px';
+  //add the button to contentContainer
+  contentContainer.appendChild(openFolderButton);
+
+  // add event for click the button
+  openFolderButton.addEventListener('click', ()=>{
+    console.log("Button clicked!"); 
+    openFolder(filePath);
+  })
 }
 
 async function displayFileAnalysis(filePath) {
@@ -664,10 +677,36 @@ async function displayGraphvizFile(filePath) {
     const contentContainer = document.getElementById('file-content2');
     contentContainer.innerHTML = ''; // clean container
     const svg = await window.electron.vizRender(content);
-      console.log('Generated SVG:', svg);
-      contentContainer.innerHTML = svg;  // insert svg
+    console.log('Generated SVG:', svg);
+    contentContainer.innerHTML = svg;  // insert svg
+
+    //create a new button for source png
+    const openFolderButton = document.createElement('button')
+    openFolderButton.textContent = 'Open Folder to Get Source Picture';
+    openFolderButton.computedStyleMap.marginTop = '10px';
+
+    //add the button to contentContainer
+    contentContainer.appendChild(openFolderButton);
+
+    // add event for click the button, open png file location.
+    openFolderButton.addEventListener('click', ()=>{
+      console.log("Button clicked!"); 
+      const pngFilePath = filePath.replace(/graph\.gv$/, 'graph.png');
+      openFolder(pngFilePath);
+    })
   } catch (error) {
       console.error('Error rendering GV file:', error);
       contentContainer.textContent = 'Failed to render the GV file.';
+  }
+}
+
+async function openFolder(filePath){
+  try
+  {
+    console.log(`Original filePath: ${filePath}`); 
+    await window.electron.showItemInFolder(filePath);
+  }
+  catch (error) {
+    console.error("Error in OpenFolder", error);
   }
 }

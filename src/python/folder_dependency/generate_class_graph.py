@@ -50,6 +50,7 @@ def recursively_traverse_and_create_graphs(base_folder, output_folder, output_fi
     output_file_path = os.path.join(output_folder, f'{output_file_name}.dot')
     if not is_leaf:
         graph.save(directory=output_folder)
+        graph.render(filename='graph', directory=output_folder, format='png')
 
 def main(input_folder, output_folder):
     if not os.path.exists(output_folder):
