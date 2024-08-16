@@ -61,7 +61,7 @@ app.on('ready', () => {
     const runAnalysis = () => {
       return new Promise((resolve, reject) => {
           const command = `conda activate repo_advisor && python ..\\python\\folder_dependency\\main_invoker.py  -s "${folderPath}" -o "${outputDir}"`;
-          exec(command, (error, stdout, stderr) => {
+          exec(command, { maxBuffer: 1024*1024*10 },(error, stdout, stderr) => {
               if (error) {
                   console.error(`Error executing command: ${error.message}`);
                   reject(error);
