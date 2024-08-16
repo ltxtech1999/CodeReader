@@ -19,7 +19,8 @@ class Program
         if (args.Length < 2)
         {
             Console.WriteLine("Usage: <program> <project_folder> <output_root_folder>");
-            ProcessDirectory("C:\\src\\vienna\\src\\azureml-api\\src\\Designer\\src\\MiddleTier\\MiddleTier", ".\\output");
+            string currentDirectory = Directory.GetCurrentDirectory();
+            ProcessDirectory("E:\\vienna\\src\\azureml-api\\src\\Designer\\src\\MiddleTier\\MiddleTier", ".\\output");
             return;
         }
 

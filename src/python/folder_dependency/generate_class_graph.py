@@ -17,7 +17,7 @@ def create_graph_from_csv(graph, csv_file_path):
             elif type_.lower() == 'edge':
                 graph.edge(source, target, label)
 
-def recursively_traverse_and_create_graphs(base_folder, output_folder, output_file_name, parent_graph=None):
+def recursively_traverse_and_create_graphs(base_folder, output_folder, output_file_name, create_png=True, parent_graph=None):
     folder_name = os.path.basename(base_folder)
     graph = Digraph(name='graph')
     is_subgraph = bool(parent_graph)
@@ -50,7 +50,9 @@ def recursively_traverse_and_create_graphs(base_folder, output_folder, output_fi
     output_file_path = os.path.join(output_folder, f'{output_file_name}.dot')
     if not is_leaf:
         graph.save(directory=output_folder)
-        graph.render(filename='graph', directory=output_folder, format='png')
+        if create_png:
+            # ignore c# scenario create png as the picture is too large.
+            graph.render(filename='graph', directory=output_folder, format='png')
 
 def main(input_folder, output_folder):
     if not os.path.exists(output_folder):

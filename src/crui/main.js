@@ -75,6 +75,24 @@ app.on('ready', () => {
           });
       });
     };
+
+    const runDotnetAnalysis = () => {
+      return new Promise((resolve, reject) => {
+          const dotnetCommand = `dotnet run --project ..\\csharp\\ast_parser\\Utilities\\Utilities.csproj ${folderPath} ${outputDir}`;
+          exec(dotnetCommand, { maxBuffer: 1024*1024*10 }, (error, stdout, stderr) => {
+              if (error) {
+                  console.error(`Error executing dotnet command: ${error.message}`);
+                  reject(error);
+                  return;
+              }
+              console.log(`Dotnet Output: ${stdout}`);
+              if (stderr) {
+                  console.warn(`Dotnet Stderr: ${stderr}`);
+              }
+              resolve({ stdout, stderr });
+          });
+      });
+    };
     
     const result = await runAnalysis();
     console.log(outputDir);
