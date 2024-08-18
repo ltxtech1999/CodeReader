@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld('electron', {
   getFunctionInternalCallStackAnalysis: (filePath, functionName) => ipcRenderer.invoke('function-internal-call-graph-analysis', filePath, functionName),
   openExternal: (url) => ipcRenderer.invoke('open-external', url),
   showItemInFolder: (filePath) => ipcRenderer.invoke('show-item-in-folder', filePath),
+  sendLanguageChoice: (language) => ipcRenderer.invoke('send-language-choice', language),
   vizRender: async (content) => {
     const viz = new Viz({ Module, render }); 
     return await viz.renderString(content);

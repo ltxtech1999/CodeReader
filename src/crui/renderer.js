@@ -8,6 +8,11 @@ document.getElementById('select-folder').addEventListener('click', async () => {
   }
 });
 
+document.getElementById('select-language').addEventListener('change', async (event) =>{
+  const selectedLanguage = event.target.value;
+  await window.electron.sendLanguageChoice(selectedLanguage);
+})
+
 async function displayDirectory(folderPath) {
   const directoryItems = await window.electron.readDirectory(folderPath);
   const { nodes, stats } = await buildTreeData(directoryItems);
@@ -163,7 +168,14 @@ async function displayInteractDot() {
     // Handle dragging behavior here
   });
 }
-async function displayFolderBasicInfo(filePath) {
+async function displayFolderBasicInfo(filePath, isCsharp = false) {
+  if(isCsharp){
+    // Clear the container as we don't need file-content1 for csharp scenario.
+    const contentContainer = document.getElementById('file-content1');
+    contentContainer.innerHTML = '';
+    contentContainer.textContent = 'No content in file-content1 for c# scenario';
+    return;
+  }
   const content = await window.electron.readFile(filePath);
   const treeData = JSON.parse(content);
   const contentContainer = document.getElementById('file-content1');
@@ -433,14 +445,20 @@ async function displayAnalysisInfo(folderPath) {
   if (analysisInfo.error) {
     contentContainer.textContent = analysisInfo.error;
   } else {
-    // displayJsonFile(analysisInfo.folder_info_path);
-    displayFolderBasicInfo(analysisInfo.folder_info_path);
+    displayFolderBasicInfo(analysisInfo.folder_info_path, analysisInfo.isCsharp);
     await displayGraphvizFile(analysisInfo.package_dep_info_path);
-    await displayPngFile(analysisInfo.folder_call_graph_info_path);
-    // displayInteractDot();
+    await displayPngFile(analysisInfo.folder_call_graph_info_path, analysisInfo.isCsharp);
   }
 }
+
 async function displayPngFile(filePath) {
+  if(isCsharp){
+    // Clear the container as we don't need file-content1 for csharp scenario.
+    const contentContainer = document.getElementById('file-content3');
+    contentContainer.innerHTML = '';
+    contentContainer.textContent = 'No content in file-content3 for c# scenario';
+    return;
+  }
   const contentContainer = document.getElementById('file-content3');
   contentContainer.innerHTML = ''; // Clear the content container
 

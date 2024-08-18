@@ -50,7 +50,7 @@ def project_analysis(target_folder, analysis_info_folder):
     save_folder_info_to_json(target_folder, folder_analysis_output, target_folder, code_analysis_result_path)
     
     analysis_dependency(code_analysis_result_path,folder_package_dep_analysis_output,"csv")
-    generate_gv_result(folder_package_dep_analysis_output)
+    generate_gv_result(folder_package_dep_analysis_output, folder_package_dep_analysis_output)
 
     generate_call_graphs_for_folders(target_folder, folder_call_graph_output)
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     if (target_function):
         generate_call_graphs_for_function(project_folder, output_folder, target_function)
     if (language == 'csharp'):
-        generate_gv_result(output_folder, False)
+        generate_gv_result(project_folder, output_folder, False)
     else:
         project_analysis(project_folder, output_folder)
     

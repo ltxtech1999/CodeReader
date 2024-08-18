@@ -20,7 +20,9 @@ class Program
         {
             Console.WriteLine("Usage: <program> <project_folder> <output_root_folder>");
             string currentDirectory = Directory.GetCurrentDirectory();
-            ProcessDirectory("E:\\vienna\\src\\azureml-api\\src\\Designer\\src\\MiddleTier\\MiddleTier", ".\\output");
+            ProcessDirectory("D:\\code\\vienna\\src\\azureml-api\\src\\Designer\\src\\MiddleTier\\MiddleTier", "C:\\Users\\tingxilin\\.code-analyzer\\temp\\analysis_output\\2024-08-17T15-52-48-851Z");
+            // ProcessDirectory("D:\\code\\airflow\\airflow\\cli", "C:\\Users\\tingxilin\\.code-analyzer\\temp\\analysis_output\\2024-08-17T15-52-48-851Z");
+            // ProcessDirectory("E:\\vienna\\src\\azureml-api\\src\\Designer\\src\\MiddleTier\\MiddleTier", ".\\output");
             return;
         }
 

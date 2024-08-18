@@ -223,9 +223,9 @@ def analysis_dependency(root_folder, output_folder, format="png"):
 
 
 
-def generate_gv_result(output_folder, create_png=True):
+def generate_gv_result(input_folder, output_folder, create_png=True):
     # temporarily only read 1 graph.csv. Add generate graph.dot in the same folder
-    recursively_traverse_and_create_graphs(output_folder, output_folder, create_png=create_png,output_file_name=None)
+    recursively_traverse_and_create_graphs(input_folder, output_folder, create_png=create_png,output_file_name=None)
 
 if __name__ == "__main__":
     project_name = "promptflow"
